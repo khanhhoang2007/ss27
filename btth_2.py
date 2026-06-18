@@ -1,5 +1,5 @@
-
 from abc import ABC, abstractmethod
+
 
 class BaseProduct(ABC):
     warehouse_name = "Amazon Logistics"
@@ -122,16 +122,12 @@ class HybridPremiumProduct(ColdStorageProduct, HazardousProduct):
 
 class FedExCarrier:
     def ship_package(self, product, quantity):
-        print(
-            f"[FedEx] Tiếp nhận {product.product_code} - {quantity} đơn vị"
-        )
+        print(f"[FedEx] Tiếp nhận {product.product_code} - {quantity} đơn vị")
 
 
 class DHLCarrier:
     def ship_package(self, product, quantity):
-        print(
-            f"[DHL] Tiếp nhận {product.product_code} - {quantity} đơn vị"
-        )
+        print(f"[DHL] Tiếp nhận {product.product_code} - {quantity} đơn vị")
 
 
 def dispatch_to_carrier(carrier_agent, product, quantity):
@@ -139,9 +135,7 @@ def dispatch_to_carrier(carrier_agent, product, quantity):
         carrier_agent.ship_package(product, quantity)
         product.export_stock(quantity)
     except AttributeError:
-        print(
-            "Đơn vị vận chuyển không hợp lệ hoặc chưa ký kết hợp đồng kỹ thuật"
-        )
+        print("Đơn vị vận chuyển không hợp lệ hoặc chưa ký kết hợp đồng kỹ thuật")
 
 
 def show_product_info(product):
@@ -155,7 +149,9 @@ def show_product_info(product):
     if isinstance(product, ColdStorageProduct):
         print("Nhiệt độ:", product.required_temperature)
 
-    if isinstance(product, HazardousProduct) or isinstance(product, HybridPremiumProduct):
+    if isinstance(product, HazardousProduct) or isinstance(
+        product, HybridPremiumProduct
+    ):
         print("Hạn mức:", product.max_safety_limit)
 
     print("\\nMRO:")
@@ -205,12 +201,7 @@ def main():
                 elif t == "3":
                     temp = float(input("Nhiệt độ: "))
                     limit = int(input("Hạn mức: "))
-                    current_product = HybridPremiumProduct(
-                        code,
-                        name,
-                        temp,
-                        limit
-                    )
+                    current_product = HybridPremiumProduct(code, name, temp, limit)
 
                 products.append(current_product)
                 print("Đăng ký thành công")
@@ -278,11 +269,7 @@ def main():
 
             carrier = FedExCarrier() if c == "1" else DHLCarrier()
 
-            dispatch_to_carrier(
-                carrier,
-                current_product,
-                qty
-            )
+            dispatch_to_carrier(carrier, current_product, qty)
 
         elif choice == "7":
             print("Tạm biệt!")
